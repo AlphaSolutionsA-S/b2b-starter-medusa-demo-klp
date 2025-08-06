@@ -33,8 +33,7 @@
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
     "awilix": "^8.0.1",
-    "pg": "^8.13.0",
-    "zod": "3.22.4"
+    "pg": "^8.13.0"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.8.8-snapshot-20250714090316",
@@ -56,6 +55,9 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "resolutions": {
+    "rollup": "4.44.2"
   },
   "packageManager": "yarn@4.4.0"
 }
