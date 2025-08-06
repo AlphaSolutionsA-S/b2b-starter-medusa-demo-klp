@@ -33,7 +33,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)/backend
+    sourceFolder: '$(Build.SourcesDirectory)/backend'
     contents: |
        **
     targetFolder: '$(Build.ArtifactStagingDirectory)'
