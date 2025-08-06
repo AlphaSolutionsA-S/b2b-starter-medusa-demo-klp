@@ -22,10 +22,12 @@ steps:
   inputs:
     versionSource: 'spec'
     versionSpec: '20.x'
+    
 - script: |
     cd backend
     corepack enable
     yarn install 
+    yarn build
   displayName: 'yarn install and build'
 
 
