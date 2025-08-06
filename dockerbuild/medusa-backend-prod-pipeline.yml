@@ -1,0 +1,67 @@
+trigger:
+ - manual
+
+resources:
+- repo: self
+
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'c5ceba20-768d-4257-83eb-46c05214a087'
+  imageRepository: 'Droemmeland_medusa_backend_prodb2b-starter-medusa-demo-klp'
+  containerRegistry: 'alphasolutions.azurecr.io'
+  dockerfilePath: 'build/Dockerfile-backend'
+  tag: '$(Build.BuildId)'
+  node.env: 'production'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: '20.x'
+- script: |
+    cd backend
+    yarn install --production
+  displayName: 'yarn install'
+
+- script: |
+    cd backend
+    yarn build
+  displayName: 'yarn build'
+  
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)/backend/.medusa/server'
+    contents: |
+       **
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy output files'
+
+
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    artifactName: medusa-server
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    publishLocation: 'pipeline'
+  displayName: 'Publish medusa artifact'
+
+  # Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    buildContext: $(Build.ArtifactStagingDirectory)
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(tag)
+      latest
