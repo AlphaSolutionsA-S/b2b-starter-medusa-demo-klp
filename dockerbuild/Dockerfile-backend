@@ -4,7 +4,6 @@ RUN mkdir /medusa-app
 WORKDIR /medusa-app
 COPY . .
 #COPY .env.dev .env
-WORKDIR /medusa-app/backend
 RUN yarn install 
 EXPOSE 9000
 CMD sh -c "free -m && yarn start"
