@@ -41,12 +41,12 @@ steps:
 
 
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    artifactName: medusa-server
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    publishLocation: 'pipeline'
-  displayName: 'Publish medusa artifact'
+#- task: PublishPipelineArtifact@1
+#  inputs:
+#    artifactName: medusa-server
+#    targetPath: '$(Build.ArtifactStagingDirectory)'
+#    publishLocation: 'pipeline'
+#  displayName: 'Publish medusa artifact'
 
   # Docker
 # Build and push an image to Azure Container Registry
