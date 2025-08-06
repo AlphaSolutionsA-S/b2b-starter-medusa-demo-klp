@@ -7,8 +7,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'c5ceba20-768d-4257-83eb-46c05214a087'
-  imageRepository: 'Droemmeland_medusa_backend_prodb2b-starter-medusa-demo-klp'
+  dockerRegistryServiceConnection: '851c7833-15a2-4c6a-b5e6-50046b8748d6'
+  imageRepository: 'medusa_backend_prodb2b-starter-medusa-demo-klp'
   containerRegistry: 'alphasolutions.azurecr.io'
   dockerfilePath: 'build/Dockerfile-backend'
   tag: '$(Build.BuildId)'
