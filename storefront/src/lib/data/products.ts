@@ -179,3 +179,73 @@ export const listProductsWithSort = async ({
     queryParams,
   }
 }
+
+/**
+ * Search for product variants by SKU or EAN code
+ */
+export const searchVariantsBySkuOrEan = async ({
+  query,
+  countryCode,
+  limit = 10,
+}: {
+  query: string
+  countryCode: string
+  limit?: number
+}): Promise<{ variant: HttpTypes.StoreProductVariant; product: HttpTypes.StoreProduct }[]> => {
+  if (!query.trim()) {
+    return []
+  }
+
+  const region = await getRegion(countryCode)
+  if (!region) {
+    return []
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  try {
+    // Search products with variants that match SKU or EAN
+    const { products } = await sdk.client.fetch<{ products: HttpTypes.StoreProduct[] }>(
+      `/store/products`,
+      {
+        credentials: "include",
+        method: "GET",
+        query: {
+          limit: 100,
+          region_id: region.id,
+          fields: "*variants,*variants.calculated_price,*variants.inventory_quantity",
+        },
+        headers,
+        cache: "no-store", // Don't cache search results
+      }
+    )
+
+    const results: { variant: HttpTypes.StoreProductVariant; product: HttpTypes.StoreProduct }[] = []
+    
+    for (const product of products) {
+      if (product.variants) {
+        for (const variant of product.variants) {
+          // Check if SKU or EAN matches the query (case-insensitive prefix match)
+          const sku = variant.sku?.toLowerCase() || ""
+          const ean = variant.ean?.toLowerCase() || ""
+          const searchQuery = query.toLowerCase()
+          
+          if (sku.startsWith(searchQuery) || ean.startsWith(searchQuery)) {
+            results.push({ variant, product })
+          }
+          
+          if (results.length >= limit) {
+            return results
+          }
+        }
+      }
+    }
+    
+    return results
+  } catch (error) {
+    console.error("Error searching variants:", error)
+    return []
+  }
+}
