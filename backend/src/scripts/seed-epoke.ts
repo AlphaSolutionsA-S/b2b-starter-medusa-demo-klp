@@ -99,6 +99,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
   await createTaxRegionsWorkflow(container).run({
     input: countries.map((country_code) => ({
       country_code,
+      provider_id: "tp_system",
     })),
   });
   logger.info("Finished seeding tax regions.");
@@ -252,7 +253,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           },
           {
             currency_code: "eur",
-            amount: 10,
+            amount: 70,
           },
           {
             region_id: region.id,

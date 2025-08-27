@@ -79,6 +79,7 @@ const categories :HttpTypes.StoreProductCategory[] = [] ;
     notFound()
   }
 
+  if (currentCategory.description == "sparepartsection") {
   return (
     <CategoryTemplate
       categories={categories}
@@ -88,4 +89,12 @@ const categories :HttpTypes.StoreProductCategory[] = [] ;
       countryCode={params.countryCode}
     />
   )
+  
+  }
+  else if (currentCategory.description == "sparepartbook") {
+
+  }
+  else if (currentCategory.description == "sparepartbookssection") {
+
+  }
 }
