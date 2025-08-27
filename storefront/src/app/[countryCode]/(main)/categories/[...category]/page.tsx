@@ -1,6 +1,8 @@
 import { getCategoryByHandle, listCategories } from "@/lib/data/categories"
 import { listRegions } from "@/lib/data/regions"
 import CategoryTemplate from "@/modules/categories/templates"
+import CategoryTemplate2 from "@/modules/categories/templates/index2"
+import CategoryTemplate3 from "@/modules/categories/templates/index3"
 import { SortOptions } from "@/modules/store/components/refinement-list/sort-products"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -92,9 +94,27 @@ const categories :HttpTypes.StoreProductCategory[] = [] ;
   
   }
   else if (currentCategory.description == "sparepartbook") {
+  return (
+    <CategoryTemplate2
+      categories={categories}
+      currentCategory={currentCategory}
+      sortBy={sortBy}
+      page={page}
+      countryCode={params.countryCode}
+    />
+  )
 
   }
   else if (currentCategory.description == "sparepartbookssection") {
+  return (
+    <CategoryTemplate3
+      categories={categories}
+      currentCategory={currentCategory}
+      sortBy={sortBy}
+      page={page}
+      countryCode={params.countryCode}
+    />
+  )
 
   }
 }

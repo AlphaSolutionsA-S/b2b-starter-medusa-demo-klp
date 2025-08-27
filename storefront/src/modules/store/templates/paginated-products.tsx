@@ -51,6 +51,12 @@ export default async function PaginatedProducts({
   if (sortBy === "created_at") {
     queryParams["order"] = "created_at"
   }
+  if (sortBy === "subtitle_number") {
+    queryParams["order"] = "subtitle"
+  }
+  else if (sortBy ) {
+    queryParams["order"] = sortBy
+  }
 
   const region = await getRegion(countryCode)
 

@@ -2,7 +2,7 @@
 
 import { ChevronUpDown } from "@medusajs/icons"
 
-export type SortOptions = "price_asc" | "price_desc" | "created_at"
+export type SortOptions = "price_asc" | "price_desc" | "created_at"|  "subtitle_number"
 
 type SortProductsProps = {
   sortBy: SortOptions

@@ -13,7 +13,7 @@ import { Suspense } from "react"
 import Image from "next/image"
 
 
-export default function CategoryTemplate({
+export default function CategoryTemplate3({
   categories,
   currentCategory,
   sortBy,
@@ -41,40 +41,15 @@ export default function CategoryTemplate({
                 <Text className="font-medium">
                   {currentCategory.name}
                 </Text>
-                <Image src={`/${currentCategory.id}.png`} alt={currentCategory.name} width="800" height="800" />
               </Container>
-            {currentCategory.products?.length === 0 ? (
-              <Container className="flex flex-col gap-2 justify-center text-center items-center text-sm text-neutral-500">
-                <Text className="font-medium">
-                  No products found for this category.
-                </Text>
-                <LocalizedClientLink
-                  href="/store"
-                  className="flex gap-2 items-center"
-                >
-                  <Button variant="secondary">
-                    Back to all products
-                    <ArrowUturnLeft className="w-4 h-4" />
-                  </Button>
-                </LocalizedClientLink>
-              </Container>
-            ) : (
-              <Suspense
-                fallback={
-                  <SkeletonProductGrid
-                    count={currentCategory.products?.length}
-                  />
-                }
-              >
-                <PaginatedProducts
-                  sortBy="subtitle_number"
-                  
-                  page={pageNumber}
-                  categoryId={currentCategory.id}
-                  countryCode={countryCode}
-                />
-              </Suspense>
-            )}
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                  {currentCategory.category_children?.map(child => (
+                    <LocalizedClientLink key={child.id} href={`/categories/${child.handle}`} className="flex flex-col items-center gap-2 p-4 border rounded-lg bg-white hover:shadow-lg transition-shadow">
+                      <Text className="font-semibold text-base text-center underline text-blue-600">{child.name}</Text>
+                      <Image src={`/${child.id}.png`} alt={child.name} width={200} height={200} className="object-contain rounded" />
+                    </LocalizedClientLink>
+                  ))}
+                </div>
           </div>
         </div>
     

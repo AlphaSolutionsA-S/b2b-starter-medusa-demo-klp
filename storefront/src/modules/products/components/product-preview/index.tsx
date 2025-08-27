@@ -32,7 +32,11 @@ export default async function ProductPreview({
       data-testid="product-list-item"
       className="flex flex-row items-center w-full border-b border-gray-200 py-3 px-2 bg-white hover:bg-gray-50 transition-colors"
     >
-      {/* Product Title & Brand */}
+      <div className="flex flex-col flex-1 min-w-0">
+        <Text className="text-ui-fg-base font-medium truncate min-w-[30px] " data-testid="product-subtitle">
+          {product.subtitle || " "}
+        </Text>
+      </div>
       <div className="flex flex-col flex-1 min-w-0">
         <Text className="text-ui-fg-base font-medium truncate min-w-[60px] " data-testid="product-title">
           {product.options[0].values[0].value || "Epokenr"}

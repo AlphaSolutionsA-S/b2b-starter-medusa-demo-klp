@@ -45,6 +45,13 @@ export function sortProducts(
       )
     })
   }
+  if (sortBy === "subtitle_number") {
+    sortedProducts.sort((a, b) => {
+      return (
+         Number.parseInt(a.subtitle || "0") -  Number.parseInt(b.subtitle || "0")
+      )
+    })
+  }
 
   return sortedProducts
 }
