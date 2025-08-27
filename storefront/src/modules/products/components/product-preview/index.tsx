@@ -28,50 +28,48 @@ export default async function ProductPreview({
   }, 0)
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div
-        data-testid="product-wrapper"
-        className="flex flex-col gap-4 relative aspect-[3/5] w-full overflow-hidden p-4 bg-white shadow-borders-base rounded-lg group-hover:shadow-[0_0_0_4px_rgba(0,0,0,0.1)] transition-shadow ease-in-out duration-150"
-      >
-        <div className="w-full h-full p-10">
-          <Thumbnail
-            thumbnail={product.thumbnail}
-            images={product.images}
-            size="square"
-            isFeatured={isFeatured}
-          />
-        </div>
-        <div className="flex flex-col txt-compact-medium">
-          <Text className="text-neutral-600 text-xs">BRAND</Text>
-          <Text className="text-ui-fg-base" data-testid="product-title">
-            {product.title}
-          </Text>
-        </div>
-        <div className="flex flex-col gap-0">
-          {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          <Text className="text-neutral-600 text-[0.6rem]">Excl. VAT</Text>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex flex-row gap-1 items-center">
-            <span
-              className={clx({
-                "text-green-500": inventoryQuantity && inventoryQuantity > 50,
-                "text-orange-500":
-                  inventoryQuantity &&
-                  inventoryQuantity <= 50 &&
-                  inventoryQuantity > 0,
-                "text-red-500": inventoryQuantity === 0,
-              })}
-            >
-              •
-            </span>
-            <Text className="text-neutral-600 text-xs">
-              {inventoryQuantity} left
-            </Text>
-          </div>
-          <PreviewAddToCart product={product} region={region} />
-        </div>
+    <div
+      data-testid="product-list-item"
+      className="flex flex-row items-center w-full border-b border-gray-200 py-3 px-2 bg-white hover:bg-gray-50 transition-colors"
+    >
+      {/* Product Title & Brand */}
+      <div className="flex flex-col flex-1 min-w-0">
+        <Text className="text-ui-fg-base font-medium truncate min-w-[60px] " data-testid="product-title">
+          {product.options[0].values[0].value || "Epokenr"}
+        </Text>
       </div>
-    </LocalizedClientLink>
+      <div className="flex flex-col flex-1 min-w-0">
+        <Text className="text-neutral-600 text-xs truncate min-w-[60px] ">
+          {product.title}
+        </Text>
+      </div>
+
+      {/* Price */}
+      <div className="flex flex-col items-end min-w-[100px] mx-4">
+        {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+        <Text className="text-neutral-600 text-[0.7rem]">Excl. VAT</Text>
+      </div>
+
+      {/* Inventory */}
+      <div className="flex flex-col items-end min-w-[80px] mx-4">
+        <span
+          className={clx({
+            "text-green-500": inventoryQuantity && inventoryQuantity > 50,
+            "text-orange-500":
+              inventoryQuantity &&
+              inventoryQuantity <= 50 &&
+              inventoryQuantity > 0,
+            "text-red-500": inventoryQuantity === 0,
+          })}
+        >
+          {inventoryQuantity} left
+        </span>
+      </div>
+
+      {/* Add to Cart Button */}
+      <div className="flex items-center min-w-[120px] justify-end">
+        <PreviewAddToCart product={product} region={region} />
+      </div>
+    </div>
   )
 }

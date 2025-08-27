@@ -9,7 +9,7 @@ import { Suspense } from "react"
 export const dynamicParams = true
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Epoke reservedelsshop",
   description:
     "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
 }
@@ -36,9 +36,6 @@ export default async function Home(props: {
     <div className="flex flex-col gap-y-8 m-2">
       <Hero />
       <QuickOrder />
-      <Suspense fallback={<SkeletonFeaturedProducts />}>
-        <FeaturedProducts countryCode={countryCode} />
-      </Suspense>
     </div>
   )
 }

@@ -162,7 +162,7 @@ const QuickOrder = () => {
   const validItemsCount = items.filter(item => item.isValid).length
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 max-w-2xl mx-auto">
+    <div className="bg-white rounded-lg shadow-sm border p-6 max-w-4xl mx-auto">
       <h2 className="text-xl font-semibold mb-4">Quick Order</h2>
       
       <div className="space-y-4">

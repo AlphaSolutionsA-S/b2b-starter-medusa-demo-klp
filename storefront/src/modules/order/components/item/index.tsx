@@ -13,9 +13,6 @@ type ItemProps = {
 const Item = ({ item, order }: ItemProps) => {
   return (
     <tr className="flex gap-x-4">
-      <td className="w-20">
-        <Thumbnail thumbnail={item.thumbnail} size="square" />
-      </td>
 
       <td className="flex flex-col w-full">
         <div>
@@ -23,10 +20,6 @@ const Item = ({ item, order }: ItemProps) => {
             {item.product_title}
           </Text>
 
-          <LineItemOptions
-            variant={item.variant}
-            data-testid="product-variant"
-          />
         </div>
 
         <div className="flex justify-between w-full">

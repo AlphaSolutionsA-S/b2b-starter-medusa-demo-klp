@@ -10,6 +10,8 @@ import { HttpTypes } from "@medusajs/types"
 import { Container, Text } from "@medusajs/ui"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import Image from "next/image"
+
 
 export default function CategoryTemplate({
   categories,
@@ -35,19 +37,12 @@ export default function CategoryTemplate({
         className="flex flex-col py-6 content-container gap-4"
         data-testid="category-container"
       >
-        <CategoryBreadcrumb
-          categories={categories}
-          category={currentCategory}
-        />
-        <div className="flex flex-col small:flex-row small:items-start gap-3">
-          <RefinementList
-            sortBy={sort}
-            categories={categories}
-            currentCategory={currentCategory}
-            listName={currentCategory.name}
-            data-testid="sort-by-container"
-          />
-          <div className="w-full">
+              <Container className="flex flex-col gap-2 justify-center text-center items-center text-sm text-neutral-500">
+                <Text className="font-medium">
+                  {currentCategory.name}
+                </Text>
+                <Image src={`/${currentCategory.id}.png`} alt={currentCategory.name} width="800" height="800" />
+              </Container>
             {currentCategory.products?.length === 0 ? (
               <Container className="flex flex-col gap-2 justify-center text-center items-center text-sm text-neutral-500">
                 <Text className="font-medium">
@@ -72,7 +67,7 @@ export default function CategoryTemplate({
                 }
               >
                 <PaginatedProducts
-                  sortBy={sort}
+                  
                   page={pageNumber}
                   categoryId={currentCategory.id}
                   countryCode={countryCode}
@@ -81,7 +76,6 @@ export default function CategoryTemplate({
             )}
           </div>
         </div>
-      </div>
-    </div>
+    
   )
 }

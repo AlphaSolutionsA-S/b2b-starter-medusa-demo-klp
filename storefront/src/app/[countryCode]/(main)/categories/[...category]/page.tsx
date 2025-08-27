@@ -4,6 +4,8 @@ import CategoryTemplate from "@/modules/categories/templates"
 import { SortOptions } from "@/modules/store/components/refinement-list/sort-products"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { HttpTypes } from "@medusajs/types"
+
 
 export const dynamicParams = true
 
@@ -67,11 +69,11 @@ export default async function CategoryPage(props: Props) {
   const params = await props.params
   const { sortBy, page } = searchParams
 
-  const categories = await listCategories()
+//  const categories = await listCategories()
+const categories :HttpTypes.StoreProductCategory[] = [] ;
 
-  const currentCategory = categories.find(
-    (category) => category.handle === params.category.join("/")
-  )
+
+  const currentCategory = await getCategoryByHandle(params.category)
 
   if (!currentCategory) {
     notFound()
